@@ -57,7 +57,7 @@ std::string InputScreen::inputArgument(Chart& chart, const std::string& title, A
     setTitle(title);
     get_screen_output(get_screen_output, args...);
     input_all_argument(input_all_argument, pass, args...);
-    system("cls");
+    clearScreen();
     printStringDeq();
     return pass;
 }

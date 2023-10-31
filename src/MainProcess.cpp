@@ -28,7 +28,7 @@ void MainProcess::menu() {
     chart.distancePreprocessing();
 
     while (1) {
-        system("cls");
+        InputScreen::clearScreen();
         std::cout << "1.Time Shift" << std::endl;
         std::cout << "2.Chart Rotate" << std::endl;
         std::cout << "3.Chart Rotate(linearly)" << std::endl;
@@ -133,52 +133,3 @@ void MainProcess::pauseConsole() {
     std::cout << "Press enter to continue...";
     std::cin.get();
 }
-
-/*
-string MainProcess::enterPos(const string str, double& start, double& end) {
-    string command;
-    while (1) {
-        system("cls");
-        cout << str << endl << endl;
-        cout << "Input \"x\" to exit" << endl;
-        cout << "Input \"all\" to select the whole chart" << endl << endl;
-        cout << "Input start pos (ms):";
-        cin >> command;
-        if (command == "all")
-            break;
-        else if (command == "x")
-            return command;
-        else if (isNumber(command)) {
-            start = stod(command);
-            break;
-        }
-    }
-    if (command == "all") {
-        start = 0;
-        end = chart.note.back().at(1);
-    }
-    else {
-        while (1) {
-            system("cls");
-            cout << str << endl << endl;
-            cout << "start pos (ms) = " << start << endl << endl;
-            cout << "Input \"x\" to exit" << endl << endl;
-            cout << "Input end pos (ms):";
-            cin >> command;
-            if (command == "x")
-                return command;
-            else if (isNumber(command)) {
-                end = stod(command);
-                break;
-            }
-        }
-    }
-    if (start > end) {
-        double temp = end;
-        end = start;
-        start = temp;
-    }
-    return command;
-}
-*/
-

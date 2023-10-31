@@ -10,7 +10,8 @@ class InputScreen {
 public:
 	template <typename... Args>
 	static std::string inputArgument(Chart& chart, const std::string& title, Args&... args);
-	
+	static void clearScreen();
+
 private:
 	InputScreen();
 	static std::deque<std::deque<std::string>> screen_deq;

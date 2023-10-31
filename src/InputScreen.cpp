@@ -6,7 +6,7 @@ std::string InputScreen::inputFromUser(const std::string& input, const std::stri
     std::string command;
 
     while (1) {
-        system("cls");
+        clearScreen();
         printStringDeq(count);
         std::cout << std::endl << "Input \"x\" to exit" << std::endl;
         if (range.find("all") != std::string::npos) {
@@ -120,4 +120,12 @@ bool InputScreen::isNumber(const std::string& s) {
     catch (const std::exception&) {
         return false;
     }
+}
+
+void InputScreen::clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#elif defined(unix) || defined(__unix__) || defined(__unix) || defined(__APPLE__)
+    system("clear");
+#endif
 }
