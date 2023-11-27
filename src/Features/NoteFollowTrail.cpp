@@ -24,7 +24,10 @@ void MainProcess::noteFollowTrail() {
         type = chart.getNote(i).getType();
         final_degree = fmod(round(line_degree), 180);
         if (ori_degree < 0) {
-            final_degree += 360;
+            ori_degree += 360;
+        }
+        if (ori_degree > 180) {
+            final_degree += 180;
         }
         if (type == NoteType::Tap || type == NoteType::Flick) {
             chart.getNote(i).setValue(NoteAttr::degree, final_degree);

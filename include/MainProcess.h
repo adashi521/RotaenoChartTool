@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#define  _USE_MATH_DEFINES
 #include <cmath>
 #include <random>
 #include "Chart.h"
@@ -36,6 +37,7 @@ private:
 	void dextorySpeed();
 	void sawtoothWaveMaker();
 	void RrharilSpeed();
+	void ReverseChartMaker();
 
 	void showComplete();
 	void showCompleteAndSave();

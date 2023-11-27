@@ -75,14 +75,17 @@ void MainProcess::menu() {
         else if (command == "10") {
             sawtoothWaveMaker();
         }
-        else if (command == "d") {
+        else if (command == "dx") {
             dextorySpeed();
         }
         else if (command == "h") {
             hiddenChartMaker();
         }
-        else if (command == "r") {
+        else if (command == "rr") {
             RrharilSpeed();
+        }
+        else if (command == "re"){
+            ReverseChartMaker();
         }
         else if (command == "t") {
             int t;

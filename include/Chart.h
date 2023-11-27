@@ -90,9 +90,9 @@ private:
 	template <typename T>
 		void printInfo(std::stringstream& chart, const std::deque<std::shared_ptr<T>>& input);
 	template <typename T>
-		std::size_t findPosByTime(const std::deque<std::shared_ptr<T>>& input, const double time, const int mode = 0) const;
+		std::size_t findPosByTime(const std::deque<std::shared_ptr<T>>& input, const double time, const int mode = 2) const;
 	template <typename T>
-		std::size_t findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double pos, const int mode = 0) const;
+		std::size_t findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double pos, const int mode = 2) const;
 	
 	void sortBPMByTime();
 	void sortSpeedByTime();

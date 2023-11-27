@@ -409,7 +409,7 @@ void Chart::clear() {
 
 bool Chart::isNote(const Note& input) {
 	NoteType type = input.getType();
-	return (type == NoteType::Tap || type == NoteType::Flick || type == NoteType::Slide || type == NoteType::Rotate || type == NoteType::Catch);
+	return (type == NoteType::Tap || type == NoteType::Flick || type == NoteType::Slide || type == NoteType::Rotate || type == NoteType::Catch || type == NoteType::Bomb);
 }
 
 std::string Chart::getChart() {

@@ -34,7 +34,7 @@ void InputScreen::addToStringDeq(const std::string input, const std::size_t coun
 void InputScreen::printStringDeq(const std::size_t count) {
     for (std::size_t i = 0; i < InputScreen::screen_deq.size(); i++) {
         if (i == count + 2) {
-            std::cout << "¡÷";
+            std::cout << "->";
         }
         else if (i >= 2) {
             std::cout << "  ";
@@ -63,16 +63,14 @@ bool InputScreen::inRange(const std::string& target, const std::string& range_st
     std::deque<std::string> range_elements;
     std::istringstream iss(range_str);
     std::string token;
-    bool is_range = false;
     double target_num = 0;
 
     if (isNumber(target)) {
         target_num = stod(target);
     }
     while (getline(iss, token, ' ')) {
-        is_range = false;
         std::size_t hyphen_pos = token.find('-');
-        if (token.size() == 1 && isNumber(target)) {
+        if (token == "-" && isNumber(target)) {
             return true;
         }
         else if (hyphen_pos == token.size() - 1) {
@@ -81,7 +79,6 @@ bool InputScreen::inRange(const std::string& target, const std::string& range_st
                 if (isNumber(target) && target_num >= start) {
                     return true;
                 }
-                is_range = true;
             }
         }
         else if (hyphen_pos == 0) {
@@ -90,7 +87,6 @@ bool InputScreen::inRange(const std::string& target, const std::string& range_st
                 if (isNumber(target) && target_num <= end) {
                     return true;
                 }
-                is_range = true;
             }
         }
         else if (hyphen_pos != std::string::npos) {
@@ -100,11 +96,9 @@ bool InputScreen::inRange(const std::string& target, const std::string& range_st
                 if (isNumber(target) && target_num >= start && target_num <= end) {
                     return true;
                 }
-                is_range = true;
-
             }
         }
-        if ((isNumber(target) && isNumber(token)) || is_range == false) {
+        if ((isNumber(target) && isNumber(token))) {
             range_elements.push_back(token);
         }
     }
