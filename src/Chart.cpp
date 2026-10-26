@@ -33,7 +33,15 @@ void Chart::pushBackNote(const std::deque<double> input) {
 	case NoteType::Trail:
 		note.emplace_back(std::make_shared<Trail>(input));
 		break;
+	case NoteType::Custom:
+		note.emplace_back(std::make_shared<Custom>(input));
+		break;
 	default:
+		std::cerr << "Error: Integer \"" << input.at(0) << "\" is not a vaild type in NoteType" << std::endl;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "Application closing, press enter to continue...";
+		std::cin.get();
+		exit(1);
 		break;
 	}
 }
@@ -119,9 +127,12 @@ void Chart::readFile(std::fstream& input_file) {
 			readBPM(str);
 			break;
 		case 2:
-			readSpeed(str);
+			//readTag(str);
 			break;
 		case 3:
+			readSpeed(str);
+			break;
+		case 4:
 			readNote(str);
 			break;
 		}
@@ -129,11 +140,14 @@ void Chart::readFile(std::fstream& input_file) {
 		if (str == "# BPM") {
 			listen = 1;
 		}
-		else if (str == "# Speed") {
+		else if (str == "# Tag") {
 			listen = 2;
 		}
-		else if (str == "# Note") {
+		else if (str == "# Speed") {
 			listen = 3;
+		}
+		else if (str == "# Note") {
+			listen = 4;
 		}
 	}
 }
@@ -147,7 +161,29 @@ std::size_t Chart::findSpeedPosByTime(const double time, const int mode) const {
 }
 
 std::size_t Chart::findNotePosByTime(const double time, const int mode) const {
-	return findPosByTime(note, time, mode);
+    return findPosByTime(note, time, mode);
+}
+
+std::size_t Chart::findSpecificNotePosByTime(const double time, const NoteType notetype, const int mode) const {
+	std::deque<std::shared_ptr<Note>> one_type;
+	std::deque<std::size_t> pos_list;
+	for (std::size_t i = 0; i < note.size(); i++) {
+		if (note.at(i)->getType() == notetype) {
+			one_type.push_back(note.at(i));
+			pos_list.push_back(i);
+		}
+	}
+	if (one_type.size() == 0) {
+		return -1;
+	}
+	return pos_list.at(findPosByTime(one_type, time, mode));
+}
+
+double Chart::findTrailNodeTimeByTime(const double time, const int mode) const {
+	std::size_t pos;
+	double d = findDistanceByTime(time);
+	pos = findPosByDistance(trail_distance, d, mode);
+    return trail_distance.at(pos)->getTime();
 }
 
 double Chart::findDistanceByTime(const double time) const {
@@ -410,6 +446,24 @@ void Chart::clear() {
 bool Chart::isNote(const Note& input) {
 	NoteType type = input.getType();
 	return (type == NoteType::Tap || type == NoteType::Flick || type == NoteType::Slide || type == NoteType::Rotate || type == NoteType::Catch || type == NoteType::Bomb);
+}
+
+double Chart::normalizeAngle(double x) {
+    double normalized = fmod(x, 360);
+
+    if (normalized < 0) {
+        normalized += 360;
+    }
+
+    if (normalized >= 180) {
+        normalized -= 180;
+    }
+
+    return normalized;
+}
+
+double Chart::findTimeByNotePos(const std::size_t pos) const {
+	return note.at(pos)->getValue(NoteAttr::time);
 }
 
 std::string Chart::getChart() {

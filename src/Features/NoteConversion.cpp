@@ -62,19 +62,22 @@ void MainProcess::noteConversion() {
                 const double now_bpm = chart.getBPM(chart.findBPMPosByTime(note.getValue(NoteAttr::time))).getValue(BPMAttr::bpm);
                 const double degree = note.getValue(NoteAttr::degree);
                 const double end_degree = note.getValue(NoteAttr::end_degree);
+                const double prev_curvature = note.getValue(NoteAttr::prev_curv);
+                const double next_curvature = note.getValue(NoteAttr::next_curv);
                 const double snap = note.getValue(NoteAttr::snap);
                 const double amount = note.getValue(NoteAttr::amount);
-                const double degree_gap = (end_degree - degree) / amount;
                 const double time_gap = 60000 / now_bpm / snap;
+                double now_degree = 0;
                 for (int i = 0; i < amount; i++) {
+                    now_degree = Chart::getYfromX(degree, end_degree, prev_curvature / 100, next_curvature / 100, static_cast<double>(i) / amount);
                     if (type2 == 0 || type2 == 1) {
-                        chart.pushBackNote({ type2, now_time + time_gap * i, now_degree + degree_gap * i });
+                        chart.pushBackNote({ type2, now_time + time_gap * i, now_degree });
                     }
                     if (type2 == 2 || type2 == 3) {
-                        chart.pushBackNote({ 2, now_time + time_gap * i, now_degree + degree_gap * i, type2, now_degree + degree_gap * i, 1, 1, 0, 0 });
+                        chart.pushBackNote({ 2, now_time + time_gap * i, now_degree, type2, now_degree, 1, 1, 0, 0 });
                     }
                     if (type2 == 5 || type2 == 6) {
-                        if (now_degree + degree_gap * i >= 180) {
+                        if (now_degree + now_degree >= 180) {
                             chart.pushBackNote({ type2, now_time + time_gap * i, 1 });
                         }
                         else {

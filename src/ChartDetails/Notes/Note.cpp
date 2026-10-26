@@ -78,6 +78,10 @@ int Note::noteTypeToInt(const NoteType type) {
 	case NoteType::Trail:
 		return 11;
 		break;
+	case NoteType::Custom:
+		std::cerr << "Error: Cannot convert NoteType Custom to int!" << std::endl;
+		pauseConsoleAndExit();
+		break;
 	default:
 		std::cerr << "Error: Undefined NoteType \"" << static_cast<int>(type) << "\" while using noteTypeToInt!" << std::endl;
 		pauseConsoleAndExit();

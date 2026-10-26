@@ -5,7 +5,7 @@
 #include <type_traits>
 #include "../ChartElement.h"
 
-enum class NoteType { Tap, Flick, Slide, Rotate, Catch, Bomb, Trail };
+enum class NoteType { Tap, Flick, Slide, Rotate, Catch, Bomb, Trail, Custom };
 enum class SlideType { Tap, Flick, SmallSlide, BigSlide};
 enum class NoteAttr { time, degree, slide_type, end_degree, snap, amount, prev_curv, next_curv, delta };
 
@@ -15,7 +15,7 @@ public:
 	Note(const NoteType notetype) : notetype(notetype), degree(0) {}
 
     NoteType getType() const { return notetype; };
-	int getIntType() const { return noteTypeToInt(notetype); };
+	virtual int getIntType() const { return noteTypeToInt(notetype); };
     virtual void setValue(const NoteAttr attr, const double value) = 0;
 	void increment(const NoteAttr attr, const double value);
     virtual double getValue(const NoteAttr attr) const = 0;
@@ -62,8 +62,9 @@ inline NoteType Note::numToNoteType(const T val) {
 		return NoteType::Trail;
 		break;
 	default:
-		std::cerr << "Error: Integer \"" << type << "\" is not a vaild type in NoteType" << std::endl;
-		pauseConsoleAndExit();
+		// std::cerr << "Error: Integer \"" << type << "\" is not a vaild type in NoteType" << std::endl;
+		// pauseConsoleAndExit();
+		return NoteType::Custom;
 		break;
 	}
 	return NoteType();

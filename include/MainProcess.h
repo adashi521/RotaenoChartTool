@@ -7,6 +7,7 @@
 #include <random>
 #include "Chart.h"
 #include "InputScreen.h"
+#include "external/truncated_normal.hpp"
 
 class MainProcess {
 public:
@@ -22,24 +23,38 @@ private:
 
 	void writeFile();
 	void menu();
+	void showComplete();
+	void showCompleteAndSave();
+	void pauseConsole();
 
 	// Features
-	void hiddenChartMaker();
 	void timeShift();
 	void chartRotate();
 	void chartRotateLinear();
 	void noteConversion();
 	void getDistance();
 	void realCopy();
-	void makeCircuit();
-	void randomRightAngleMaker();
 	void noteFollowTrail();
-	void dextorySpeed();
+	
+	// Trail Maker
+	void squareWaveMaker();
+	void randomSquareWaveMaker();
 	void sawtoothWaveMaker();
+	void randomSawtoothWaveMaker();
+    void trailSegmentation();
+
+        // Special Cases
+	void hiddenChartMaker();
+	void makeCircuit();
 	void RrharilSpeed();
 	void ReverseChartMaker();
-
-	void showComplete();
-	void showCompleteAndSave();
-	void pauseConsole();
+	void dextorySpeed();
+	void dextorySpeed2();
+	void randomBombGenerator();
+    void rotateTrailMaker();
+    void heavensCageFlick();
+	void cyberneticVampireFlick();
+	void aleph0Speed();
+	void foodMakerSingle2025();
+	void foodMaker2025();
 };

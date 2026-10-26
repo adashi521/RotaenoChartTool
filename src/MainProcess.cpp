@@ -35,10 +35,11 @@ void MainProcess::menu() {
         std::cout << "4.Note Conversion" << std::endl;
         std::cout << "5.Get Distance" << std::endl;
         std::cout << "6.Real Copy" << std::endl;
-        std::cout << "7.\'Circuit\' Maker" << std::endl;
-        std::cout << "8.Note Follow Trail" << std::endl;
-        std::cout << "9.Random Right Angle Maker" << std::endl;
-        std::cout << "10.Sawtooth Wave Maker" << std::endl;
+        std::cout << "7.Note Follow Trail" << std::endl << std::endl;
+        std::cout << "t1.Square Wave Maker" << std::endl;
+        std::cout << "t2.Random Square Wave Maker" << std::endl;
+        std::cout << "t3.Sawtooth Wave Maker" << std::endl;
+        std::cout << "t4.Random Sawtooth Wave Maker" << std::endl << std::endl;
         std::cout << "Input \"x\" to exit" << std::endl << std::endl;
         std::cout << "Input:";
         std::cin >> command;
@@ -64,19 +65,28 @@ void MainProcess::menu() {
             realCopy();
         }
         else if (command == "7") {
-            makeCircuit();
-        }
-        else if (command == "8") {
             noteFollowTrail();
         }
-        else if (command == "9") {
-            randomRightAngleMaker();
+        else if (command == "t1") {
+            squareWaveMaker();
         }
-        else if (command == "10") {
+        else if (command == "t2") {
+            randomSquareWaveMaker();
+        }
+        else if (command == "t3") {
             sawtoothWaveMaker();
+        }
+        else if (command == "t4") {
+            randomSawtoothWaveMaker();
+        }
+        else if (command == "mc") {
+            makeCircuit();
         }
         else if (command == "dx") {
             dextorySpeed();
+        }
+        else if (command == "dx2") {
+            dextorySpeed2();
         }
         else if (command == "h") {
             hiddenChartMaker();
@@ -84,17 +94,53 @@ void MainProcess::menu() {
         else if (command == "rr") {
             RrharilSpeed();
         }
-        else if (command == "re"){
+        else if (command == "re") {
             ReverseChartMaker();
         }
-        else if (command == "t") {
-            int t;
-            std::cin >> t;
-            std::cout << chart.findDegreeByTime(t);
-            std::cout << std::endl << "Complete!" << std::endl;
-            pauseConsole();
+        else if (command == "rb") {
+            randomBombGenerator();
         }
-    }
+        else if (command == "rt") {
+            rotateTrailMaker();
+        }
+        else if (command == "hf") {
+            heavensCageFlick();
+        }
+        else if (command == "cv") {
+            cyberneticVampireFlick();
+        }
+        else if (command == "as") {
+            aleph0Speed();
+        }
+        else if (command == "ts") {
+            trailSegmentation();
+        }
+        else if (command == "fms") {
+            foodMakerSingle2025();
+        }
+        else if (command == "fm") {
+            foodMaker2025();
+        }
+        else if (command == "t") {
+            // int t;
+            // std::cin >> t;
+            // std::cout << chart.findDegreeByTime(t);
+            // std::cout << std::endl << "Complete!" << std::endl;
+            // pauseConsole();
+        }
+        else if (command == "tt") {
+            // double mean = 0, std = 0, random_degree = 0;
+            // std::cin >> mean >> std;
+            // std::random_device rd;
+            // int seed = rd();
+            // for (int i = 0; i < 10; i++) {
+            //     random_degree = mit::truncated_normal_a_sample(mean, std, 0, seed);
+            //     std::cout << random_degree << std::endl;
+            // }
+            // std::cout << std::endl << "Complete!" << std::endl;
+            // pauseConsole();
+        }
+    } 
     return;
 }
 

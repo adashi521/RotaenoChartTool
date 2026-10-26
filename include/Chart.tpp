@@ -74,7 +74,7 @@ inline std::size_t Chart::findPosByTime(const std::deque<std::shared_ptr<T>>& in
 	}
 
 	// example: find time 3
-	// 1, 1, 2, 2, 2, 4, 4, 4, 5
+	// arr = [1, 1, 2, 2, 2, 4, 4, 4, 5]
 	// mode0: return pos 2
 	// mode1: return pos 4
 	// mode2: return pos 5
@@ -104,8 +104,10 @@ inline std::size_t Chart::findPosByTime(const std::deque<std::shared_ptr<T>>& in
 		}
 		break;
 	case 2:
-		if (i < input.size() - 1 && input.at(i)->getTime() != new_time)
+		if (i < input.size() - 1 && input.at(i)->getTime() != new_time) {
+			i++;
 			new_time = input.at(i + 1)->getTime();
+		}
 		while (1) {
 			if (i > 0 && input.at(i - 1)->getTime() == new_time) {
 				i--;
@@ -116,8 +118,10 @@ inline std::size_t Chart::findPosByTime(const std::deque<std::shared_ptr<T>>& in
 		}
 		break;
 	case 3:
-		if (i < input.size() - 1 && input.at(i)->getTime() != new_time)
+		if (i < input.size() - 1 && input.at(i)->getTime() != new_time) {
+			i++;
 			new_time = input.at(i + 1)->getTime();
+		}
 		while (1) {
 			if (i < input.size() - 1 && input.at(i + 1)->getTime() == new_time) {
 				i++;
@@ -133,7 +137,7 @@ inline std::size_t Chart::findPosByTime(const std::deque<std::shared_ptr<T>>& in
 }
 
 template<typename T>
-inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double pos, const int mode) const {
+inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double distance, const int mode) const {
 	std::size_t start = 0, end = input.size();
 	std::size_t i;
 	if (input.empty()) {
@@ -147,27 +151,27 @@ inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>
 		else if (i <= 0) {
 			return 0;
 		}
-		else if (input.at(i)->getDistance() <= pos && input.at(i + 1)->getDistance() >= pos) {
+		else if (input.at(i)->getDistance() <= distance && input.at(i + 1)->getDistance() >= distance) {
 			break;
 		}
-		else if (input.at(i)->getDistance() < pos) {
+		else if (input.at(i)->getDistance() < distance) {
 			start = i;
 		}
-		else if (input.at(i)->getDistance() > pos) {
+		else if (input.at(i)->getDistance() > distance) {
 			end = i;
 		}
 	}
 
-	if (input.at(i)->getDistance() < pos && input.at(i + 1)->getDistance() == pos) {
+	if (input.at(i)->getDistance() < distance && input.at(i + 1)->getDistance() == distance) {
 		i++;
 	}
 
-	double new_time = pos;
+	double new_distance = distance;
 	switch (mode) {
 	case 0:
-		new_time = input.at(i)->getDistance();
+		new_distance = input.at(i)->getDistance();
 		while (1) {
-			if (i > 0 && input.at(i - 1)->getDistance() == new_time) {
+			if (i > 0 && input.at(i - 1)->getDistance() == new_distance) {
 				i--;
 			}
 			else {
@@ -176,9 +180,9 @@ inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>
 		}
 		break;
 	case 1:
-		new_time = input.at(i)->getDistance();
+		new_distance = input.at(i)->getDistance();
 		while (1) {
-			if (i < input.size() - 1 && input.at(i + 1)->getDistance() == new_time) {
+			if (i < input.size() - 1 && input.at(i + 1)->getDistance() == new_distance) {
 				i++;
 			}
 			else {
@@ -187,10 +191,12 @@ inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>
 		}
 		break;
 	case 2:
-		if (i < input.size() - 1 && input.at(i)->getDistance() != new_time)
-			new_time = input.at(i + 1)->getDistance();
+		if (i < input.size() - 1 && input.at(i)->getDistance() != new_distance) {
+			i++;
+			new_distance = input.at(i)->getDistance();
+		}
 		while (1) {
-			if (i > 0 && input.at(i - 1)->getDistance() == new_time) {
+			if (i > 0 && input.at(i - 1)->getDistance() == new_distance) {
 				i--;
 			}
 			else {
@@ -199,10 +205,12 @@ inline std::size_t Chart::findPosByDistance(const std::deque<std::shared_ptr<T>>
 		}
 		break;
 	case 3:
-		if (i < input.size() - 1 && input.at(i)->getDistance() != new_time)
-			new_time = input.at(i + 1)->getDistance();
+		if (i < input.size() - 1 && input.at(i)->getDistance() != new_distance) {
+			i++;
+			new_distance = input.at(i)->getDistance();
+		}
 		while (1) {
-			if (i < input.size() - 1 && input.at(i + 1)->getDistance() == new_time) {
+			if (i < input.size() - 1 && input.at(i + 1)->getDistance() == new_distance) {
 				i++;
 			}
 			else {

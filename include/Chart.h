@@ -22,6 +22,7 @@
 #include "ChartDetails/Notes/Catch.h"
 #include "ChartDetails/Notes/Trail.h"
 #include "ChartDetails/Notes/Bomb.h"
+#include "ChartDetails/Notes/Custom.h"
 
 class Chart {
 public:
@@ -48,6 +49,8 @@ public:
 	std::size_t findBPMPosByTime(const double time, const int mode = 0) const;	// return pos
 	std::size_t findSpeedPosByTime(const double time, const int mode = 0) const;	// return pos
 	std::size_t findNotePosByTime(const double time, const int mode = 0) const;	// return pos
+	std::size_t findSpecificNotePosByTime(const double time, const NoteType notetype, const int mode = 0) const;	// return pos
+	double findTrailNodeTimeByTime(const double time, const int mode = 1) const;	// return pos
 	double findDistanceByTime(const double time) const; // return distance
 	double findDegreeByTime(const double time) const; // return degree
 	static double getYfromX(const double a, const double b, const double ca, const double cb, const double x); // From Chris
@@ -56,8 +59,10 @@ public:
 	void sortAll();
 	void clear();
 	static bool isNote(const Note& input);
-	
-	std::string getChart();
+    static double normalizeAngle(double x);
+	double findTimeByNotePos(const std::size_t pos) const;
+
+    std::string getChart();
 	
 private:
 	std::deque<std::shared_ptr<BPM>> bpm;
@@ -76,7 +81,9 @@ private:
 		4(rotate)/time/degree/delta/prev_curv/next_curv
 		5(catch)/time/degree
 		11(trail)/time/degree/delta/prev_curv/next_curv
+		(custom)/time/degree
 	*/
+
 	std::deque<std::shared_ptr<SpeedDistance>> speed_distance;
 	std::deque<std::shared_ptr<TrailDistance>> trail_distance;
 
@@ -92,7 +99,7 @@ private:
 	template <typename T>
 		std::size_t findPosByTime(const std::deque<std::shared_ptr<T>>& input, const double time, const int mode = 2) const;
 	template <typename T>
-		std::size_t findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double pos, const int mode = 2) const;
+		std::size_t findPosByDistance(const std::deque<std::shared_ptr<T>>& input, const double distance, const int mode = 2) const;
 	
 	void sortBPMByTime();
 	void sortSpeedByTime();

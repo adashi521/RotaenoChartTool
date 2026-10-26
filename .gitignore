@@ -2,3 +2,5 @@ build/
 bin/
 charts/
 python/
+assets/
+old_code/

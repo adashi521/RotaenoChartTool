@@ -1,6 +1,6 @@
 {
-    "editor.formatOnType": true,
-    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 0, BreakBeforeBraces: Attach }",
+    //"editor.formatOnType": true,
+    //"C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 0, BreakBeforeBraces: Attach }",
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
@@ -52,6 +52,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "cstring": "cpp"
     }
 }

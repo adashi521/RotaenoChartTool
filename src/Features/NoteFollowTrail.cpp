@@ -2,12 +2,13 @@
 
 void MainProcess::noteFollowTrail() {
     std::string command;
-    double start = -1, end = -1;
+    double start = -1, end = -1, shift = 0;
     std::size_t start_pos, end_pos;
 
     command = InputScreen::inputArgument(chart, "Note Follow Trail",
         start, "start time(ms)", "- all",
-        end, "end time(ms)", "-");
+        end, "end time(ms)", "-",
+        shift, "degree shift", "-");
     if (command == "x") {
         return;
     }
@@ -30,14 +31,14 @@ void MainProcess::noteFollowTrail() {
             final_degree += 180;
         }
         if (type == NoteType::Tap || type == NoteType::Flick) {
-            chart.getNote(i).setValue(NoteAttr::degree, final_degree);
+            chart.getNote(i).setValue(NoteAttr::degree, final_degree + shift);
         }
         else if (type == NoteType::Slide) {
             double now_bpm = chart.getBPM(chart.findBPMPosByTime(chart.getNote(i).getValue(NoteAttr::time))).getValue(BPMAttr::bpm);
             double snap = chart.getNote(i).getValue(NoteAttr::snap);
             double amount = chart.getNote(i).getValue(NoteAttr::amount);
             double line_degree_2;
-            chart.getNote(i).setValue(NoteAttr::degree, final_degree);
+            chart.getNote(i).setValue(NoteAttr::degree, final_degree + shift);
             if (amount > 1) {
                 line_degree = chart.findDegreeByTime(chart.getNote(i).getValue(NoteAttr::time));
                 line_degree_2 = chart.findDegreeByTime(chart.getNote(i).getValue(NoteAttr::time) + (60000 / now_bpm * (amount - 1) / snap));
@@ -49,7 +50,7 @@ void MainProcess::noteFollowTrail() {
                     final_degree += 180;
                 }
             }
-            chart.getNote(i).setValue(NoteAttr::end_degree, round(final_degree));
+            chart.getNote(i).setValue(NoteAttr::end_degree, round(final_degree + shift));
         }
         count++;
     }
